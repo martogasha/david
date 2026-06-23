@@ -69,7 +69,7 @@
                             </div>
                            
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Package *</label>
+                                <label>Package * (Eg. 10MBPS)</label>
                                 <input type="text" value="{{$customer->last_name}}" class="form-control" name="bandwidth"/>
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
