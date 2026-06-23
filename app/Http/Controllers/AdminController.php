@@ -476,10 +476,10 @@ class AdminController extends Controller
                try {
             // Get the MikroTik API client using the configured facade
             $config = new Config([
-                'host' => '102.209.56.86',
-                'user' => 'admin',
-                'pass' => '@anxvtT3n',
-                'port' => 8728,
+                  'host' => '102.67.153.34',
+                                'user' => 'bill',
+                                'pass' => 'bill#2026',
+                                'port' => 8728,
         ]);
         $client = new Client($config);
 
@@ -536,6 +536,7 @@ class AdminController extends Controller
         }
     }
     public function prompt($id){
+        dd('ok');
         
         $customer = User::find($id);
         $account = $customer->phone;
