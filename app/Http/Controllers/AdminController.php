@@ -2811,10 +2811,10 @@ class AdminController extends Controller
         public function refresh(){
             try{
                     $client = new Client([
-            'host' => '102.209.56.86',
-            'user' => 'admin',
-            'pass' => '@anxvtT3n',
-            'port' => 8728,
+                                'host' => '102.67.153.34',
+                                'user' => 'bill',
+                                'pass' => 'bill#2026',
+                                'port' => 8728,
 ]);
 
     // Monitor traffic on ether1
@@ -2853,9 +2853,9 @@ class AdminController extends Controller
             public function refreshBandwidth(){
             try{
                     $client = new Client([
-                                'host' => '102.209.56.86',
-                                'user' => 'admin',
-                                'pass' => '@anxvtT3n',
+                                'host' => '102.67.153.34',
+                                'user' => 'bill',
+                                'pass' => 'bill#2026',
                                 'port' => 8728,
     ]);
 
