@@ -14,11 +14,7 @@ class IndexController extends Controller
         $oldCart = Session::get('cat');
         $cart = new Cat($oldCart);
         $prods  = Product::all();
-        return view('client.index',[
-            'prods'=>$prods,
-            'products'=>$cart->item,
-            'totalPrice'=>$cart->totalPrice
-        ]);
+     return view('auth.login');
     }
     public function cart(){
         if (!Session::has('cat')){
