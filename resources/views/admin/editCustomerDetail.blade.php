@@ -55,8 +55,8 @@
                             </div>
 
                              <div class="col-xl-3 col-lg-6 col-12 form-group">
-                                <label>Comment: {{$customer->location}}</label>
-                                <input type="text" class="form-control" name="location">
+                                <label>Comment:</label>
+                                <input type="text" value="{{$customer->location}}" class="form-control" name="location">
                             </div>
 
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
