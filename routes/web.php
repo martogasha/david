@@ -73,7 +73,7 @@ Route::get('delP', [AdminController::class, 'delP']);
 Route::get('getReceipt/{id}', [AdminController::class, 'getReceipt']);
 Route::get('cashReceipt/{id}', [AdminController::class, 'cashReceipt']);
 Route::get('mpesaReceipt/{id}', [AdminController::class, 'mpesaReceipt']);
-Route::get('addEmployee', [AdminController::class, 'addEmployee']);
+Route::get('addUser', [AdminController::class, 'addEmployee']);
 Route::get('employees', [AdminController::class, 'employees']);
 Route::get('addCash', [AdminController::class, 'addCash']);
 Route::get('addMpesa', [AdminController::class, 'addMpesa']);

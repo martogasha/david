@@ -1,5 +1,5 @@
 @include('adminPartial.nav')
-<title>Add Employee | Japcom</title>
+<title>Add User | Henix</title>
         <!-- Sidebar Area End Here -->
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
@@ -9,7 +9,7 @@
                     <li>
                         <a href="{{url('admin')}}">Home</a>
                     </li>
-                    <li>Add New Employee</li>
+                    <li>Add New User</li>
                 </ul>
             </div>
             @include('flash-message');
@@ -63,68 +63,68 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="products" value="5" id="customCheck1">
-                                            <label class="custom-control-label" for="customCheck1">Products</label>
+                                            <input type="checkbox" class="custom-control-input" name="dashboard" value="1" id="customCheck1">
+                                            <label class="custom-control-label" for="customCheck1">Dashboard</label>
                                         </div>
 
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="users" value="6" id="customCheck2">
-                                            <label class="custom-control-label" for="customCheck2">Users</label>
+                                            <input type="checkbox" class="custom-control-input" name="customers" value="2" id="customCheck2">
+                                            <label class="custom-control-label" for="customCheck2">Customers</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="customers" value="7" id="customCheck3">
-                                            <label class="custom-control-label" for="customCheck3">Customers</label>
+                                            <input type="checkbox" class="custom-control-input" name="payments" value="3" id="customCheck3">
+                                            <label class="custom-control-label" for="customCheck3">Payments</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="payments" value="8" id="customCheck4">
-                                            <label class="custom-control-label" for="customCheck4">Payments</label>
+                                            <input type="checkbox" class="custom-control-input" name="sms" value="4" id="customCheck4">
+                                            <label class="custom-control-label" for="customCheck4">Bulk SMS</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="expenses" value="9" id="customCheck5">
-                                            <label class="custom-control-label" for="customCheck5">Expenses</label>
+                                            <input type="checkbox" class="custom-control-input" name="band" value="5" id="customCheck5">
+                                            <label class="custom-control-label" for="customCheck5">Bandwidth</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="estimate" value="10" id="customCheck6">
-                                            <label class="custom-control-label" for="customCheck6">Estimate</label>
+                                            <input type="checkbox" class="custom-control-input" name="logs" value="6" id="customCheck6">
+                                            <label class="custom-control-label" for="customCheck6">Logs</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="invoice" value="11" id="customCheck7">
-                                            <label class="custom-control-label" for="customCheck7">Invoice</label>
+                                            <input type="checkbox" class="custom-control-input" name="user" value="7" id="customCheck7">
+                                            <label class="custom-control-label" for="customCheck7">Users</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="container" id="role_type1">
-                                <div class="row">
+                                      <div class="row">
                                     <div class="col-8">
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="products" value="5" id="customCheck1" checked>
-                                            <label class="custom-control-label" for="customCheck1">Products</label>
+                                            <input type="checkbox" class="custom-control-input" name="dashboard" value="1" id="customCheck1" checked>
+                                            <label class="custom-control-label" for="customCheck1">Dashboard</label>
                                         </div>
 
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="users" value="6" id="customCheck2" checked>
-                                            <label class="custom-control-label" for="customCheck2">Users</label>
+                                            <input type="checkbox" class="custom-control-input" name="customers" value="2" id="customCheck2" checked>
+                                            <label class="custom-control-label" for="customCheck2">Customers</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="customers" value="7" id="customCheck3" checked>
-                                            <label class="custom-control-label" for="customCheck3">Customers</label>
+                                            <input type="checkbox" class="custom-control-input" name="payments" value="3" id="customCheck3" checked>
+                                            <label class="custom-control-label" for="customCheck3">Payments</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="payments" value="8" id="customCheck4" checked>
-                                            <label class="custom-control-label" for="customCheck4">Payments</label>
+                                            <input type="checkbox" class="custom-control-input" name="sms" value="4" id="customCheck4" checked>
+                                            <label class="custom-control-label" for="customCheck4">Bulk SMS</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="expenses" value="9" id="customCheck5" checked>
-                                            <label class="custom-control-label" for="customCheck5">Expenses</label>
+                                            <input type="checkbox" class="custom-control-input" name="band" value="5" id="customCheck5" checked>
+                                            <label class="custom-control-label" for="customCheck5">Bandwidth</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="estimate" value="10" id="customCheck6" checked>
-                                            <label class="custom-control-label" for="customCheck6">Estimate</label>
+                                            <input type="checkbox" class="custom-control-input" name="logs" value="6" id="customCheck6" checked>
+                                            <label class="custom-control-label" for="customCheck6">Logs</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="invoice" value="11" id="customCheck7" checked>
-                                            <label class="custom-control-label" for="customCheck7">Invoice</label>
+                                            <input type="checkbox" class="custom-control-input" name="user" value="7" id="customCheck7" checked>
+                                            <label class="custom-control-label" for="customCheck7">Users</label>
                                         </div>
                                     </div>
                                 </div>

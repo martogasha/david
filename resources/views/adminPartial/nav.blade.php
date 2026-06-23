@@ -178,15 +178,7 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item sidebar-nav-item">
-                        <a href="#" class="nav-link"><i class="flaticon-shopping-list"></i><span>Billing</span></a>
-                        <ul class="nav sub-group-menu">
-                            <li class="nav-item">
-                                <a href="{{url('bill')}}" class="nav-link"><i
-                                        class="fas fa-angle-right"></i>Bill Customer</a>
-                            </li>
-                        </ul>
-                    </li>
+              
                      <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Bandwith Monitor</span></a>
                         <ul class="nav sub-group-menu">
@@ -202,6 +194,15 @@
                                 <li class="nav-item">
                                     <a href="{{url('logs')}}" class="nav-link"><i
                                             class="fas fa-angle-right"></i>Logs</a>
+                                </li>
+                            </ul>
+                        </li>
+                          <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i class="flaticon-open-book"></i><span>Users</span></a>
+                            <ul class="nav sub-group-menu">
+                                <li class="nav-item">
+                                    <a href="{{url('addUser')}}" class="nav-link"><i
+                                            class="fas fa-angle-right"></i>Users</a>
                                 </li>
                             </ul>
                         </li>

@@ -311,9 +311,9 @@ class AdminController extends Controller
             // Get MikroTik connection details from .env
                 try {
                             $config = new Config([
-                                'host' => '',
-                                'user' => 'admin',
-                                'pass' => '@anxvtT3n',
+                                'host' => '102.67.153.34',
+                                'user' => 'bill',
+                                'pass' => 'bill#2026',
                                 'port' => 8728,
                             ]);
 
@@ -682,6 +682,9 @@ class AdminController extends Controller
         return redirect()->back()->with('success','saved Success');
     }
     public function storeEmployee(Request $request){
+   
+            dd($request->boolean('dashboard'));
+        
         $store = User::create([
            'first_name'=>$request->first_name,
            'last_name'=>$request->last_name,
@@ -1579,10 +1582,10 @@ class AdminController extends Controller
                     try {
                     // 2. Initialize connection to MikroTik RouterOS
                     $client = new Client([
-                        'host' => '',
-                        'user' => 'admin',
-                        'pass' => '@anxvtT3n',
-                        'port' => 8728,
+                                'host' => '102.67.153.34',
+                                'user' => 'bill',
+                                'pass' => 'bill#2026',
+                                'port' => 8728,
                     ]);
 
                     // 3. Build the endpoint query to add the secret
@@ -1614,10 +1617,10 @@ class AdminController extends Controller
                 }
                 
                         $client = new Client([
-                            'host' => '102.209.56.86',
-                            'user' => 'admin',
-                            'pass' => '@anxvtT3n',
-                            'port' => 8728,
+                                'host' => '102.67.153.34',
+                                'user' => 'bill',
+                                'pass' => 'bill#2026',
+                                'port' => 8728,
                         ]);
 
                     // Build a query looking for the specific name
@@ -1637,10 +1640,10 @@ class AdminController extends Controller
                                 if($store->balance > 0){
                                     try{
                                             $config = new Config([
-                                                    'host' => '',
-                                                    'user' => 'admin',
-                                                    'pass' => '@anxvtT3n',
-                                                    'port' => 8728,
+                                            'host' => '102.67.153.34',
+                                            'user' => 'bill',
+                                            'pass' => 'bill#2026',
+                                            'port' => 8728,
                                         ]);
                                         $client = new Client($config);
 
@@ -1708,20 +1711,7 @@ class AdminController extends Controller
                                                         'date' => $now,
                                                         
                                                     ]);
-                                                                                                             $postData = [
-                        'apikey' => '9324ef7e2034b5d479f64d31ae513215',
-                        'partnerID' => 138,
-                        'mobile' => $store->phoneOne,
-                        
-                        'message' => 'Dear Customer,
-Welcome to Vumatel Networks. Your account has been created, and to activate, kindly make a payment of KES '.$store->balance.' through;
-MPESA Paybill Number 4311304
-Account Number '.$store->phone.'
-Thank you for choosing our services.',
-                        'shortcode' => 'VUMATEL',
-                        
-                    ];
-                    $respons = Http::post('https://sms.imarabiz.com/api/services/sendsms/', $postData);
+                                              
                                 }
                                 else{
                                              $createInvoice = Invoice::create([
