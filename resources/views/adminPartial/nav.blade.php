@@ -124,6 +124,7 @@
                   
                </div>
             <div class="sidebar-menu-content">
+                @auth
                 <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                     @if(auth()->user()->products!=null)
                     <li class="nav-item sidebar-nav-item">
@@ -227,5 +228,6 @@
                     @endif
 
                 </ul>
+                @endauth
             </div>
         </div>
