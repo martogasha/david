@@ -2710,7 +2710,7 @@ class AdminController extends Controller
     public function deleteUser(Request $request){
         $delete = User::find($request->userid);
         $delete->delete();
-        return redirect(url('employees'))->with('success','USER DELETED SUCCESS');
+        return redirect(url('users'))->with('success','USER DELETED SUCCESS');
 
     }
     public function bulksms(){
