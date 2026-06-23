@@ -28,8 +28,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 //client side routes
-Route::middleware(['auth'])->group(function () {
 Route::get('/', [IndexController::class, 'index']);
+Route::post('Login', [AuthController::class, 'login'])->name('Login');
+
+Route::middleware(['auth'])->group(function () {
+
 
 //admin routes
 Route::get('admin', [AdminController::class, 'admin']);
@@ -55,7 +58,6 @@ Route::post('resetUser/{id}', [AdminController::class, 'resetUser'])->name('rese
 Route::post('editC/{id}', [AdminController::class, 'editC'])->name('editC');
 Route::post('deleteUser', [AdminController::class, 'deleteUser'])->name('deleteUser');
 Route::post('deleteC', [AdminController::class, 'deleteC'])->name('deleteC');
-Route::post('Login', [AuthController::class, 'login'])->name('Login');
 Route::get('customers', [AdminController::class, 'customers']);
 Route::get('logs', [AdminController::class, 'logs']);
 Route::get('Selectcustomers', [AdminController::class, 'Selectcustomers']);
