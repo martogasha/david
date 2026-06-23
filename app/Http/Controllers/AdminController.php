@@ -700,7 +700,7 @@ class AdminController extends Controller
 
         
         $store->save();
-        return redirect()->back()->with('success','USER ADDED SUCCESSFULLY');
+        return redirect(url('users'))->with('success','USER ADDED SUCCESSFULLY');
     }
     public function employees(){
         $customers = User::where('role',1)->orWhere('role',0)->orderByDesc('id')->get();
