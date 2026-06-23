@@ -36,6 +36,7 @@
                                     <th>Connection</th>
                                     <th>Balance</th>
                                     <th>Name</th>
+                                    <th>comments</th>
                                     <th>A/c</th>
                                     
                                     <th>Package</th>
@@ -68,6 +69,7 @@
                                     @endif
                                     
                                     <td>{{$customer->first_name}}</td>
+                                    <td>{{$customer->location}}</td>
                                     <td>{{$customer->phone}}</td>
                                     
                                     <td>{{$customer->last_name}}</td>
