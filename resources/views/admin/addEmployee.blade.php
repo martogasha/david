@@ -4,7 +4,7 @@
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
             <div class="breadcrumbs-area">
-                <h3>Add New Employee</h3>
+                <h3>Add New User</h3>
                 <ul>
                     <li>
                         <a href="{{url('admin')}}">Home</a>
@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <div class="heading-layout1">
                         <div class="item-title">
-                            <h3>Add New Employee</h3>
+                            <h3>Add New User</h3>
                         </div>
                         <div class="dropdown">
                             <a class="dropdown-toggle" href="#" role="button"
@@ -34,6 +34,7 @@
                     </div>
                     <form action="{{route('storeEmployee')}}" method="post">
                         @csrf
+                        
                         <div class="row">
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>First Name *</label>
@@ -51,15 +52,12 @@
                                 <label>Phone</label>
                                 <input type="text" placeholder="712345678" class="form-control" name="phone">
                             </div>
-                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Role *</label>
-                                <select class="select2" id="getRole" name="role">
-                                    <option value="">Please Select Role *</option>
-                                    <option value="0">Admin</option>
-                                    <option value="1">User</option>
-                                </select>
+                                <input type="hidden" name="role" value="0">
+                             
                             </div>
-                            <div class="container" id="role_type">
+                            <div class="container">
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="custom-control custom-checkbox">
@@ -81,54 +79,20 @@
                                         </div>
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" name="band" value="5" id="customCheck5">
-                                            <label class="custom-control-label" for="customCheck5">Bandwidth</label>
+                                            <label class="custom-control-label" for="customCheck5">Bandwidth Monitor</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" name="logs" value="6" id="customCheck6">
                                             <label class="custom-control-label" for="customCheck6">Logs</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="user" value="7" id="customCheck7">
+                                            <input type="checkbox" class="custom-control-input" name="users" value="7" id="customCheck7">
                                             <label class="custom-control-label" for="customCheck7">Users</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="container" id="role_type1">
-                                      <div class="row">
-                                    <div class="col-8">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="dashboard" value="1" id="customCheck1" checked>
-                                            <label class="custom-control-label" for="customCheck1">Dashboard</label>
-                                        </div>
-
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="customers" value="2" id="customCheck2" checked>
-                                            <label class="custom-control-label" for="customCheck2">Customers</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="payments" value="3" id="customCheck3" checked>
-                                            <label class="custom-control-label" for="customCheck3">Payments</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="sms" value="4" id="customCheck4" checked>
-                                            <label class="custom-control-label" for="customCheck4">Bulk SMS</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="band" value="5" id="customCheck5" checked>
-                                            <label class="custom-control-label" for="customCheck5">Bandwidth</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="logs" value="6" id="customCheck6" checked>
-                                            <label class="custom-control-label" for="customCheck6">Logs</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="user" value="7" id="customCheck7" checked>
-                                            <label class="custom-control-label" for="customCheck7">Users</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                      
 
                             <div class="col-12 form-group mg-t-8">
                                 <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>

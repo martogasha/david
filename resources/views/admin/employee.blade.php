@@ -1,5 +1,5 @@
 @include('adminPartial.nav')
-<title>Employee List | Japcom</title>
+<title>Users List | Henix</title>
         <!-- Sidebar Area End Here -->
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
@@ -9,7 +9,7 @@
                     <li>
                         <a href="{{url('admin')}}">Home</a>
                     </li>
-                    <li>All Employee</li>
+                    <li>All Users</li>
                 </ul>
             </div>
             @include('flash-message')
@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <div class="heading-layout1">
                         <div class="item-title">
-                            <h3>All Employee Data</h3>
+                            <h3>All Users Data</h3>
                         </div>
                         <div class="dropdown">
                             <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"

@@ -683,24 +683,24 @@ class AdminController extends Controller
     }
     public function storeEmployee(Request $request){
    
-            dd($request->boolean('dashboard'));
+        $store = new User();
+        $store->first_name = $request->first_name;
+        $store->last_name = $request->last_name;
+        $store->phone = $request->phone;
+        $store->email = $request->email;
+        $store->role = $request->role;
+        $store->products = $request->dashboard;
+        $store->customers = $request->customers;
+        $store->payments = $request->payments;
+        $store->expenses = $request->sms;
+        $store->estimate = $request->band;
+        $store->amount_supposed_to_be_paid = $request->logs;
+        $store->users = $request->users;
+        $store->password = Hash::make('password');
+
         
-        $store = User::create([
-           'first_name'=>$request->first_name,
-           'last_name'=>$request->last_name,
-           'phone'=>$request->phone,
-           'email'=>$request->email,
-           'role'=>$request->role,
-           'products'=>$request->products,
-           'users'=>$request->users,
-           'customers'=>$request->customers,
-           'payments'=>$request->payments,
-           'expenses'=>$request->expenses,
-           'estimate'=>$request->estimate,
-           'invoice'=>$request->invoice,
-           'password'=>Hash::make('password'),
-        ]);
-        return redirect()->back()->with('success','EMPLOYEE ADDED SUCCESSFULLY');
+        $store->save();
+        return redirect()->back()->with('success','USER ADDED SUCCESSFULLY');
     }
     public function employees(){
         $customers = User::where('role',1)->orWhere('role',0)->orderByDesc('id')->get();
@@ -2410,15 +2410,15 @@ class AdminController extends Controller
         $edit->email = $request->email;
         $edit->phone = $request->phone;
         $edit->role = $request->role;
-        $edit->products = $request->products;
-        $edit->users = $request->users;
+        $edit->products = $request->dashboard;
         $edit->customers = $request->customers;
         $edit->payments = $request->payments;
-        $edit->expenses = $request->expenses;
-        $edit->estimate = $request->estimates;
-        $edit->invoice = $request->invoice;
+        $edit->expenses = $request->sms;
+        $edit->estimate = $request->band;
+        $edit->amount_supposed_to_be_paid = $request->logs;
+        $edit->users = $request->users;
         $edit->save();
-    return redirect(url('employees'))->with('success','USER EDITED SUCCESS');
+    return redirect(url('users'))->with('success','USER EDITED SUCCESS');
     }
     public function resetUser(Request $request,$id){
         $reset = User::find($id);

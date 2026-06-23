@@ -125,11 +125,13 @@
                </div>
             <div class="sidebar-menu-content">
                 <ul class="nav nav-sidebar-menu sidebar-toggle-view">
+                    @if(auth()->user()->products!=null)
                     <li class="nav-item sidebar-nav-item">
                         <a href="{{url('admin')}}" class="nav-link"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
                     </li>
-              
-                 
+                    @endif
+
+                 @if(auth()->user()->customers!=null)
                     <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Customers</span></a>
                         <ul class="nav sub-group-menu">
@@ -152,7 +154,9 @@
                          
                         </ul>
                     </li>
+                    @endif
                    
+                    @if(auth()->user()->payments!=null)
                     <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i
                                 class="flaticon-books"></i><span>Payments</span></a>
@@ -166,9 +170,10 @@
                             </li>
                         </ul>
                     </li>
-            
+                    @endif
              
-           <li class="nav-item sidebar-nav-item">
+                    @if(auth()->user()->expenses!=null)
+                    <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i class="flaticon-open-book"></i><span>Send Bulk SMS</span></a>
                         <ul class="nav sub-group-menu">
                             <li class="nav-item">
@@ -177,8 +182,9 @@
                             </li>
                         </ul>
                     </li>
-
+                    @endif
               
+                    @if(auth()->user()->estimate!=null)
                      <li class="nav-item sidebar-nav-item">
                         <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Bandwith Monitor</span></a>
                         <ul class="nav sub-group-menu">
@@ -188,24 +194,37 @@
                             </li>
                         </ul>
                     </li>
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-open-book"></i><span>Logs</span></a>
-                            <ul class="nav sub-group-menu">
+                    @endif
+
+
+                    @if(auth()->user()->amount_supposed_to_be_paid!=null)
+                    <li class="nav-item sidebar-nav-item">
+                        <a href="#" class="nav-link"><i class="flaticon-open-book"></i><span>Logs</span></a>
+                        <ul class="nav sub-group-menu">
+                            <li class="nav-item">
+                                <a href="{{url('logs')}}" class="nav-link"><i
+                                        class="fas fa-angle-right"></i>Logs</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
+
+                    @if(auth()->user()->users!=null)
+                    <li class="nav-item sidebar-nav-item">
+                        <a href="#" class="nav-link"><i class="flaticon-couple"></i><span>Users</span></a>
+                        <ul class="nav sub-group-menu">
+                            <li class="nav-item">
+                                <a href="{{url('users')}}" class="nav-link"><i
+                                        class="fas fa-angle-right"></i>Users</a>
+                            </li>
+
                                 <li class="nav-item">
-                                    <a href="{{url('logs')}}" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Logs</a>
-                                </li>
-                            </ul>
-                        </li>
-                          <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-open-book"></i><span>Users</span></a>
-                            <ul class="nav sub-group-menu">
-                                <li class="nav-item">
-                                    <a href="{{url('addUser')}}" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Users</a>
-                                </li>
-                            </ul>
-                        </li>
+                                <a href="{{url('addUser')}}" class="nav-link"><i
+                                        class="fas fa-angle-right"></i>Add Users</a>
+                            </li>
+                        </ul>
+                    </li>
+                    @endif
 
                 </ul>
             </div>
