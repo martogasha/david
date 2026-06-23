@@ -28,6 +28,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 //client side routes
+Route::middleware(['auth'])->group(function () {
 Route::get('/', [IndexController::class, 'index']);
 
 //admin routes
@@ -153,5 +154,7 @@ Route::get('mpesa', [MpesaController::class, 'index']);
 Route::get('cash', [CashController::class, 'index']);
 Route::get('test', [CashController::class, 'test']);
 Route::post('testOne', [CashController::class, 'testOne']);
+});
+
 
 require __DIR__.'/auth.php';
