@@ -311,7 +311,7 @@ class AdminController extends Controller
             // Get MikroTik connection details from .env
                 try {
                             $config = new Config([
-                                'host' => '102.209.56.86',
+                                'host' => '',
                                 'user' => 'admin',
                                 'pass' => '@anxvtT3n',
                                 'port' => 8728,
@@ -1579,7 +1579,7 @@ class AdminController extends Controller
                     try {
                     // 2. Initialize connection to MikroTik RouterOS
                     $client = new Client([
-                        'host' => '102.209.56.86',
+                        'host' => '',
                         'user' => 'admin',
                         'pass' => '@anxvtT3n',
                         'port' => 8728,
@@ -1637,7 +1637,7 @@ class AdminController extends Controller
                                 if($store->balance > 0){
                                     try{
                                             $config = new Config([
-                                                    'host' => '102.209.56.86',
+                                                    'host' => '',
                                                     'user' => 'admin',
                                                     'pass' => '@anxvtT3n',
                                                     'port' => 8728,
