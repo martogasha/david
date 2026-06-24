@@ -13,6 +13,9 @@
                    @if(auth()->user()->role==7)
                 <h3>Finance Dashboard</h3>
                  @endif
+                 @if(auth()->user()->role==0)
+                <h3>Admin</h3>
+                 @endif
                
             </div>
             @include('flash-message');

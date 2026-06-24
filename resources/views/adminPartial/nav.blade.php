@@ -91,6 +91,9 @@
                              @if(\Illuminate\Support\Facades\Auth::user()->role==7)
                             <span>Finance</span>
                             @endif
+                              @if(\Illuminate\Support\Facades\Auth::user()->role==0)
+                            <span>Admin</span>
+                            @endif
                         </div>
                         @endif
                         <div class="admin-img">
