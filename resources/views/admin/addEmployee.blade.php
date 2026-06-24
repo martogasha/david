@@ -54,7 +54,12 @@
                             </div>
                          <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Role *</label>
-                                <input type="hidden" name="role" value="0">
+                                <select class="select2" name="role">
+                                    <option value="">Please Select Role *</option>
+                                    <option value="5">Technician</option>
+                                    <option value="6">Sales</option>
+                                    <option value="7">Finance</option>
+                                </select>
                              
                             </div>
                             <div class="container">

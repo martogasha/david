@@ -35,7 +35,7 @@ class AdminController extends Controller
 {
     public function admin(){
         if (Auth::check()) {
-            if (Auth::user()->role==0 || Auth::user()->role==1) {
+            if (Auth::user()->role==0 || Auth::user()->role==1 || Auth::user()->role==5 || Auth::user()->role==6 || Auth::user()->role==7 || Auth::user()->role==8 || Auth::user()->role==9) {
                 $notice = Notice::where('id','>',0)->first();
               $currentMonth = date('m');
               $currentYeah = date('Y');
@@ -200,7 +200,7 @@ class AdminController extends Controller
     }
     public function profile(){
         if (Auth::check()) {
-            if (Auth::user()->role==0 || Auth::user()->role==1) {
+            if (Auth::user()->role==0 || Auth::user()->role==1 || Auth::user()->role==5 || Auth::user()->role==6 || Auth::user()->role==7 || Auth::user()->role==8 || Auth::user()->role==9) {
                 return view('admin.profile');
             }
         }
@@ -704,7 +704,7 @@ class AdminController extends Controller
         return redirect(url('users'))->with('success','USER ADDED SUCCESSFULLY');
     }
     public function employees(){
-        $customers = User::where('role',1)->orWhere('role',0)->orderByDesc('id')->get();
+        $customers = User::where('role',1)->orWhere('role',0)->orWhere('role',5)->orWhere('role',6)->orWhere('role',7)->orWhere('role',8)->orderByDesc('id')->get();
         return view('admin.employee',[
             'customers'=>$customers
         ]);

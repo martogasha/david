@@ -82,11 +82,14 @@
                         @if(\Illuminate\Support\Facades\Auth::check())
                         <div class="admin-title">
                             <h5 class="item-title">{{\Illuminate\Support\Facades\Auth::user()->first_name}} {{\Illuminate\Support\Facades\Auth::user()->last_name}}</h5>
-                            @if(\Illuminate\Support\Facades\Auth::user()->role==0)
-                            <span>Admin</span>
-                            @else
-                                <span>Employee</span>
-
+                            @if(\Illuminate\Support\Facades\Auth::user()->role==5)
+                            <span>Technician</span>
+                            @endif
+                              @if(\Illuminate\Support\Facades\Auth::user()->role==6)
+                            <span>Sales</span>
+                            @endif
+                             @if(\Illuminate\Support\Facades\Auth::user()->role==7)
+                            <span>Finance</span>
                             @endif
                         </div>
                         @endif

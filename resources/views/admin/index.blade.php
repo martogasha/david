@@ -4,13 +4,16 @@
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
             <div class="breadcrumbs-area">
-                <h3>Admin Dashboard</h3>
-                <ul>
-                    <li>
-                        <a href="index.html">Home</a>
-                    </li>
-                    <li>Admin</li>
-                </ul>
+                @if(auth()->user()->role==5)
+                <h3>Technician Dashboard</h3>
+                 @endif
+                 @if(auth()->user()->role==6)
+                <h3>Sales Dashboard</h3>
+                 @endif
+                   @if(auth()->user()->role==7)
+                <h3>Finance Dashboard</h3>
+                 @endif
+               
             </div>
             @include('flash-message');
             <!-- Breadcubs Area End Here -->
@@ -22,6 +25,7 @@
            
                             <!-- Dashboard summery Start Here -->
                 <div class="row gutters-20">
+                    @if(auth()->user()->products!=null)
                     <div class="col-xl-3 col-sm-6 col-12">
                         <div class="dashboard-summery-one mg-b-20">
                             <div class="row align-items-center">
@@ -46,6 +50,7 @@
                         </div>
                         
                     </div>
+                    
                     <div class="col-xl-3 col-sm-6 col-12">
                         <div class="dashboard-summery-one mg-b-20">
                             <div class="row align-items-center">
@@ -97,6 +102,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
                 <!-- Dashboard summery End Here -->
             <!-- Dashboard summery End Here -->
