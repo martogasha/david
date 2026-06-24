@@ -14,7 +14,7 @@
                 <h3>Finance Dashboard</h3>
                  @endif
                  @if(auth()->user()->role==0)
-                <h3>Admin</h3>
+                <h3>Admin Dashboard</h3>
                  @endif
                
             </div>
