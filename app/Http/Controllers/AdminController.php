@@ -17,6 +17,7 @@ use App\Models\Band;
 use App\Models\Logging;
 use App\Models\Qproduct;
 use App\Models\Quotation;
+use App\Models\Mikrotik;
 use App\Models\Duplicate;
 use App\Models\User;
 use App\Models\Singlesms;
@@ -3186,6 +3187,47 @@ Thank you for choosing our services.',
     // The max-limit is usually in format "upload/download" (e.g., "1M/10M")
     return response()->json($response);
          
+    }
+    public function addMikrotik(){
+        return view('admin.addMikrotik');
+    }
+    public function listMikrotik(){
+        $mpesas = Mikrotik::all();
+        return view('admin.listMikrotik',[
+            'mpesas'=>$mpesas
+        ]);
+    }
+
+    public function storeMikrotik(Request $request){
+                try {
+            // Initialize connection using your MikroTik's IP, username, and password
+            $client = new Client([
+                'host' => $request->mikrotik_ip,
+                'user' => $request->mikrotik_user,
+                'pass' => $request->mikrotik_password,
+                'port' => 8728,         // Default API port
+            ]);
+
+            // Create query to get system identity
+            $query = new Query('/system/identity/print');
+
+            // Execute the query
+            $response = $client->query($query)->read();
+
+            // Extract the 'name' from the MikroTik response
+            $routerName = $response[0]['name'] ?? 'Unknown';
+            $store = new Mikrotik();
+            $store->name = $routerName;
+            $store->save();
+
+         
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error','Mikrotik Not Reached');
+
+        }
+        return redirect(url('listMikrotik'))->with('success','Mikrotik added Success');
+
     }
 
 }
