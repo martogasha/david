@@ -28,3 +28,8 @@ Route::get('register', [MpesaController::class, 'register']);
 Route::get('getWebhooks', [MpesaController::class, 'getWebhooks']);
 Route::get('authenticate', [MpesaController::class, 'authenticate']);
 Route::post('storeWebhooks', [MpesaController::class, 'storeWebhooks']);
+Route::post('storeWebhookOne', [MpesaController::class, 'storeWebhookOne']);
+Route::post('storeWebhookTwo', [MpesaController::class, 'storeWebhookTwo']);
+Route::post('storeWebhookThree', [MpesaController::class, 'storeWebhookThree']);
+Route::post('storeWebhookFour', [MpesaController::class, 'storeWebhookFour']);
+
