@@ -70,6 +70,7 @@
 
                                 <th>Reference</th>
                                 <th>Name</th>
+                                <th>Paybill</th>
                                 <th>A/c No</th>
                                 <th>Amount</th>
                                 <th>Date</th>
@@ -82,6 +83,7 @@
 
                                 <td>{{$mpesa->reference}}</td>
                                 <td>{{$mpesa->senderFirstName}} {{$mpesa->senderMiddleName}} {{$mpesa->senderLastName}}</td>
+                                <td>{{$mpesa->tillNumber}}</td>
                                 <td>{{$mpesa->senderPhoneNumber}}</td>
                                 <td><b>kSH: {{$mpesa->amount}}</b></td>
                                 <td>{{date('d/m/Y H:i:s',strtotime($mpesa->originationTime))}}</td>
