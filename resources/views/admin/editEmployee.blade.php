@@ -83,12 +83,12 @@
                                             @if($user->customers!=null)
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="customers" value="2" id="customCheck3" checked>
-                                                    <label class="custom-control-label" for="customCheck3">Customers</label>
+                                                    <label class="custom-control-label" for="customCheck3">Customers/Mikrotiks</label>
                                                 </div>
                                             @else
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="customers" value="2" id="customCheck3">
-                                                    <label class="custom-control-label" for="customCheck3">Customers</label>
+                                                    <label class="custom-control-label" for="customCheck3">Customers/Mikrotiks</label>
                                                 </div>
                                             @endif
                                             @if($user->payments!=null)
@@ -102,26 +102,16 @@
                                                     <label class="custom-control-label" for="customCheck4">Payments</label>
                                                 </div>
                                             @endif
-                                            @if($user->expenses!=null)
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" name="sms" value="4" id="customCheck5" checked>
-                                                    <label class="custom-control-label" for="customCheck5">Bulk SMS</label>
-                                                </div>
-                                            @else
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" name="sms" value="4" id="customCheck5">
-                                                    <label class="custom-control-label" for="customCheck5">Bulk SMS</label>
-                                                </div>
-                                            @endif
+                                 
                                             @if($user->estimate!=null)
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="band" value="5" id="customCheck6" checked>
-                                                    <label class="custom-control-label" for="customCheck6">Bandwidth Monitor</label>
+                                                    <label class="custom-control-label" for="customCheck6">Mikrotik Management</label>
                                                 </div>
                                             @else
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" name="band" value="5" id="customCheck6">
-                                                    <label class="custom-control-label" for="customCheck6">Bandwidth Monitor</label>
+                                                    <label class="custom-control-label" for="customCheck6">Mikrotik Management</label>
                                                 </div>
                                             @endif
                                                @if($user->amount_supposed_to_be_paid!=null)

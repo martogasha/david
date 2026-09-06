@@ -197,9 +197,9 @@ class Billing extends Command
                                     foreach($getDuplicates as $getDuplicate){
                                                     try{
                                                         $config = new Config([
-                                                                'host' => '102.209.56.86',
-                                                                'user' => 'admin',
-                                                                'pass' => '@anxvtT3n',
+                                                                'host' => $getUser->mik->ip,
+                                                                'user' => $getUser->mik->user,
+                                                                'pass' => $getUser->mik->password,
                                                                 'port' => 8728,
                                                     ]);
                                                     $client = new Client($config);
@@ -251,9 +251,9 @@ class Billing extends Command
 
                                                         // 1. Initialize the client using your RouterOS credentials
                                                             $client = new Client([
-                                                            'host' => '102.209.56.86',
-                                                                'user' => 'admin',
-                                                                'pass' => '@anxvtT3n',
+                                                                'host' => $getUser->mik->ip,
+                                                                'user' => $getUser->mik->user,
+                                                                'pass' => $getUser->mik->password,
                                                                 'port' => 8728,
                                                             ]);
 
@@ -300,10 +300,10 @@ class Billing extends Command
 
                                     try{
                                                 $config = new Config([
-                                                        'host' => '102.209.56.86',
-                                                        'user' => 'admin',
-                                                        'pass' => '@anxvtT3n',
-                                                        'port' => 8728,
+                                                    'host' => $getUser->mik->ip,
+                                                    'user' => $getUser->mik->user,
+                                                    'pass' => $getUser->mik->password,
+                                                    'port' => 8728,
                                             ]);
                                             $client = new Client($config);
                                             $mikId = $getUser->mikrotik_id;
@@ -354,9 +354,9 @@ class Billing extends Command
 
                                                 // 1. Initialize the client using your RouterOS credentials
                                                     $client = new Client([
-                                                    'host' => '102.209.56.86',
-                                                        'user' => 'admin',
-                                                        'pass' => '@anxvtT3n',
+                                                        'host' => $getUser->mik->ip,
+                                                        'user' => $getUser->mik->user,
+                                                        'pass' => $getUser->mik->password,
                                                         'port' => 8728,
                                                     ]);
 
@@ -504,10 +504,10 @@ class Billing extends Command
                                     try {
                                                                 // Get the MikroTik API client using the configured facade
                                                                 $config = new Config([
-                                                                    'host' => '102.209.56.86',
-                                                                    'user' => 'admin',
-                                                                    'pass' => '@anxvtT3n',
-                                                                    'port' => 8728,
+                                                                'host' => $getUser->mik->ip,
+                                                                'user' => $getUser->mik->user,
+                                                                'pass' => $getUser->mik->password,
+                                                                'port' => 8728,
                                                             ]);
                                                             $client = new Client($config);
                                                             $query = (new Query('/ppp/secret/print'))->where('.id', $getUser->mikrotik_id);
@@ -586,10 +586,10 @@ class Billing extends Command
                                 if($getUser){
                                     try{
                                                 $config = new Config([
-                                                        'host' => '102.209.56.86',
-                                                        'user' => 'admin',
-                                                        'pass' => '@anxvtT3n',
-                                                        'port' => 8728,
+                                                    'host' => $getUser->mik->ip,
+                                                    'user' => $getUser->mik->user,
+                                                    'pass' => $getUser->mik->password,
+                                                    'port' => 8728,
                                             ]);
                                             $client = new Client($config);
                                             $mikId = $getUser->mikrotik_id;
@@ -640,9 +640,9 @@ class Billing extends Command
 
                                                 // 1. Initialize the client using your RouterOS credentials
                                                     $client = new Client([
-                                                    'host' => '102.209.56.86',
-                                                        'user' => 'admin',
-                                                        'pass' => '@anxvtT3n',
+                                                        'host' => $getUser->mik->ip,
+                                                        'user' => $getUser->mik->user,
+                                                        'pass' => $getUser->mik->password,
                                                         'port' => 8728,
                                                     ]);
 
@@ -686,9 +686,9 @@ class Billing extends Command
                                                         try {
                                                         // Get the MikroTik API client using the configured facade
                                                         $config = new Config([
-                                                            'host' => '102.209.56.86',
-                                                            'user' => 'admin',
-                                                            'pass' => '@anxvtT3n',
+                                                            'host' => $getUser->mik->ip,
+                                                            'user' => $getUser->mik->user,
+                                                            'pass' => $getUser->mik->password,
                                                             'port' => 8728,
                                                     ]);
                                                     $bandwidth = '1MBPS';

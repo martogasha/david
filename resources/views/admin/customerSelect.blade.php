@@ -25,7 +25,7 @@
                                 @csrf
                                 <button type="submit" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Update</button>
                             </form>
-                            </div>                   
+                        </div>                   
                     </div>
                     <div class="row-fluid" id="customerSelect">
                         <div class="col-lg-12 col-12 form-group">

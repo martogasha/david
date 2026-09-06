@@ -11,8 +11,8 @@
                     <li>
                         <a href="{{url('admin')}}">Home</a>
                     </li>
-                    <li id="smallTitleAll">Active Customers ({{App\Models\User::where('role',2)->where('dis_status', 'false')->count()}})</li>
-                    <a href="{{url('all')}}"><li id="smallTitleAll" style="color:red;">Disconnected Customers ({{App\Models\User::where('role',2)->where('dis_status', 'true')->count()}})</li></a>
+                    <li id="smallTitleAll">Active Customers ({{App\Models\User::where('dis_status', 'false')->count()}})</li>
+                    <a href="{{url('all')}}"><li id="smallTitleAll" style="color:red;">Disconnected Customers ({{App\Models\User::where('dis_status', 'true')->count()}})</li></a>
                 </ul>
             </div>
             <!-- Breadcubs Area End Here -->
@@ -37,8 +37,9 @@
                                     <th>Connection</th>
                                     <th>Balance</th>
                                     <th>Name</th>
+                                    <th>Comment</th>
                                     <th>A/c</th>
-                                    
+                                     <th>Mikrotik</th>
                                     <th>Package</th>
                                     <th>Amount</th>
                                     <th>Phone No:</th>
@@ -78,8 +79,9 @@
                                     <td>{{$customer->first_name}} Sub A/c's <span class="badge badge-warning">{{\App\Models\Duplicate::where('duplicate_id', $customer->id)->count()}}</span></td>
 
                                     @endif
+                                    <td>{{$customer->location}}</td>
                                     <td>{{$customer->phone}}</td>
-                                    
+                                    <td>{{$customer->mik->name}}</td>
                                     <td>{{$customer->last_name}}</td>
                                     @if($customer->role==50)
                                         <td><span class="badge badge-warning">Sub-Account</span></td>
@@ -139,8 +141,8 @@
                                 </tr>
                                 @endforeach
 
-                                                        </tbody>
-                            </table>
+                            </tbody>
+                        </table>
                         </div>
                     </div>
             </div>

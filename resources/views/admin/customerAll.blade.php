@@ -38,7 +38,7 @@
                                     <th>Balance</th>
                                     <th>Name</th>
                                     <th>A/c</th>
-                                    
+                                    <th>Mikrotik</th>
                                     <th>Package</th>
                                     <th>Amount</th>
                                     <th>Phone No:</th>
@@ -70,6 +70,7 @@
                                     
                                     <td>{{$customer->first_name}}</td>
                                     <td>{{$customer->phone}}</td>
+                                    <td>{{$customer->mik->name}}</td>
                                     
                                     <td>{{$customer->last_name}}</td>
                                         @if($customer->amount!=0)

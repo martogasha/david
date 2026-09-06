@@ -91,8 +91,8 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="item-content">
-                                        <div class="item-title">Cash Income</div>
-                                        <div class="item-number"><span>Ksh </span><span class="counter" data-num=""></span></div>
+                                        <div class="item-title">Mikrotiks</div>
+                                        <div class="item-number"><span class="counter" data-num="{{\App\Models\Mik::count()}}">{{\App\Models\Mik::count()}}</span></div>
                                     </div>
                                 </div>
                             </div>

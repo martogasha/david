@@ -41,12 +41,12 @@
                             </div>
                            <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Password</label>
-                                <input type="text" class="form-control" value="{{$randomPassword}}" name="password" required>
+                                <input type="text" class="form-control" name="password" required>
                             </div>
                            
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Account No:</label>
-                                <input type="text" class="form-control" name="phone" value="{{$randomAccount}}" required>
+                                <input type="text" class="form-control" name="phone" required>
                             </div>
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Phone No:</label>

@@ -97,7 +97,7 @@
                         </div>
                         @endif
                         <div class="admin-img">
-                            <img src="img/figure/admin.jpg" alt="Admin">
+                            <img src="{{asset('img/figure/admin.jpg')}}" alt="Admin">
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
@@ -151,17 +151,27 @@
                                     <a href="{{url('all')}}" class="nav-link"><i class="fas fa-angle-right"></i>Disconnected
                                         Customers</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{url('Selectcustomers')}}" class="nav-link"><i class="fas fa-angle-right"></i>From Mikrotik to System</a>
-                                </li>
+                           
                                 <li class="nav-item">
                                     <a href="{{url('noneActivecustomers')}}" class="nav-link"><i class="fas fa-angle-right"></i>Non-Active
                                         Customers</a>
                                 </li>
+                          
+
+                        
+                            </ul>
+                        </li>
+                        @endif
+
+                            @if(auth()->user()->customers!=null)
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Mikrotiks ({{App\Models\Mik::count()}})</span></a>
+                            <ul class="nav sub-group-menu">
+                            @foreach($mikrotiks as $mikrotik)
                                 <li class="nav-item">
-                                    <a href="{{url('addCustomers')}}" class="nav-link"><i class="fas fa-angle-right"></i>Add
-                                        Customers</a>
+                                    <a href="{{url('mikrotikDetail',$mikrotik->id)}}" class="nav-link"><i class="fas fa-angle-right"></i>{{$mikrotik->name}}</a>
                                 </li>
+                            @endforeach
 
                         
                             </ul>
@@ -185,21 +195,7 @@
                         @endif
             
              
-                        @if(auth()->user()->expenses!=null)
-                        <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-open-book"></i><span>Send Bulk SMS</span></a>
-                            <ul class="nav sub-group-menu">
-                                <li class="nav-item">
-                                    <a href="{{url('bulksms')}}" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Send Bulk SMS</a>
-                                </li>
-                                 <li class="nav-item">
-                                    <a href="{{url('sendUserSms')}}" class="nav-link"><i
-                                            class="fas fa-angle-right"></i>Send group Message</a>
-                                </li>
-                            </ul>
-                        </li>
-                        @endif
+                 
 
               
                         @if(auth()->user()->estimate!=null)

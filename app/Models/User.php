@@ -45,6 +45,7 @@ class User extends Authenticatable
         'mIds',
         'mikrotik_id',
         'dis_status',
+        'mik_id'
     ];
 
     /**
@@ -65,5 +66,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function mik(){
+        return $this->belongsTo(Mik::class);
+    }
     
 }

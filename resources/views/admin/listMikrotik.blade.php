@@ -23,7 +23,7 @@
                         </div>
               
                     </div>
-                            
+                            @include('flash-message')
                     <div class="table-responsive">
                         <div class="col-lg-12 col-12 form-group">
                             <label>Search</label>
@@ -34,8 +34,11 @@
                             <tr>
 
                                 <th>Mikrotik Name</th>
-                          
+                                <th>Mikrotik Ip Address</th>
+                                <th>Mikrotik User</th>
+                                <th>Mikrotik Password</th>
                                 <th>Action</th>
+                          
                             </tr>
                             </thead>
                             <tbody id="myTable">
@@ -43,27 +46,23 @@
                             <tr>
 
                                 <td>{{$mpesa->name}}</td>
-                                   <td>
-                                        
+                                <td>{{$mpesa->ip}}</td>
+                                <td>{{$mpesa->user}}</td>
+                                <td>{{$mpesa->password}}</td>
+                                <td>
                                         <div class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                                            aria-expanded="false">
-                                                <span class="flaticon-more-button-of-three-dots"></span>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="{{url('customerDetail',$mpesa->id)}}"><i
-                                                        class="fas fa-book-open text-orange-red"></i>View</a>
-                                                <a class="dropdown-item" href="{{url('editCustomerDetail',$mpesa->id)}}"><i
+                                        <a class="dropdown-toggle" href="#" role="button" 
+                                        data-toggle="dropdown" aria-expanded="false">...</a>
+                
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
+                                            <a class="dropdown-item" href="{{url('editMikrotik',$mpesa->id)}}"><i
                                                         class="fas fa-edit text-blue"></i>Edit</a>
-                                                <form action="{{url('noneActive')}}" method="post">
-                                                            @csrf
-                                                            <input type="hidden" value="{{$mpesa->id}}" name="user_id">
-                                                            <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Delete</button>
-                                                        </form>
-
-                                            </div>
+                                            <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
                                         </div>
-                                    </td>
+                                    </div>
+                                </td>
+                                 
                               
                             </tr>
                             @endforeach

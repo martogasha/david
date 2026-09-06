@@ -16,4 +16,7 @@ class Cache extends Model
     public function user(){
        return $this->belongsTo(User::class);
     }
+      public function mik(){
+        return $this->belongsTo(Mik::class);
+    }
 }

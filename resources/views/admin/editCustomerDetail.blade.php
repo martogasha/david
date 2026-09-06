@@ -4,7 +4,11 @@
         <div class="dashboard-content-one">
             <!-- Breadcubs Area Start Here -->
             <div class="breadcrumbs-area">
-                <h3>Edit <b style="color: red">{{$customer->first_name}}</b> Sub-Account of <span style="color:blue;">{{\App\Models\User::where('id', \App\Models\Duplicate::where('user_id', $customer->id)->value('duplicate_id'))->value('first_name')}} {{\App\Models\User::where('id', \App\Models\Duplicate::where('user_id', $customer->id)->value('duplicate_id'))->value('phone')}}</span></h3>
+                <h3>Edit <b style="color: red">{{$customer->first_name}}</b> 
+                @if(\App\Models\Duplicate::where('user_id', $customer->id)->exists())
+                Sub-Account of <span style="color:blue;">{{\App\Models\User::where('id', \App\Models\Duplicate::where('user_id', $customer->id)->value('duplicate_id'))->value('first_name')}} {{\App\Models\User::where('id', \App\Models\Duplicate::where('user_id', $customer->id)->value('duplicate_id'))->value('phone')}}</span>
+                @endif
+                </h3>
                 <form action="{{url('disableC',$customer->mikrotik_id)}}">
                         @csrf
                 @if($customer->dis_status != 'true')
@@ -131,6 +135,12 @@
                                     <div class="form-group">
                                         <label for="dob">Due Date *</label>
                                         <input type="date" value="{{ old('due_date', $customer->due_date ? \Carbon\Carbon::parse($customer->due_date)->format('Y-m-d') : '') }}" class="form-control" name="due_date"/>
+                                    </div>
+                                </div>
+                                  <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                    <div class="form-group">
+                                    <label>Comment *</label>
+                                        <input type="text" value="{{$customer->location}}" class="form-control" name="comment"/>
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-lg-6 col-12 form-group">

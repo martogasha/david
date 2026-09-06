@@ -31,6 +31,7 @@
                                 <tr>
                                    
                                     <th></th>
+                                    <th>Mikrotik Name</th>
                                     <th>Name</th>
                                     <th>Comment</th>
                                     <th>Package</th>
@@ -46,6 +47,7 @@
                                         @else
                                         <td><span class="badge badge-success">Active</span></td>
                                         @endif  
+                                        <td>{{$customer->mik->name}}</td>
                                         <td>{{$customer->first_name}}</td>
                                         <td>{{$customer->location}}</td>
                                         <td>{{$customer->last_name}}</td>

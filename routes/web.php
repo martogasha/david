@@ -166,8 +166,14 @@ Route::get('addUser', [AdminController::class, 'addEmployee']);
 Route::get('selectUser/{id}', [AdminController::class, 'selectUser']);
 Route::get('removeUser/{id}', [AdminController::class, 'removeUser']);
 Route::get('addMikrotik', [AdminController::class, 'addMikrotik']);
+Route::get('mikrotikDetail/{id}', [AdminController::class, 'mikrotikDetail']);
+Route::get('editMikrotik/{id}', [AdminController::class, 'editMikrotik']);
 Route::get('listMikrotik', [AdminController::class, 'listMikrotik']);
 Route::post('storeMikrotik', [AdminController::class, 'storeMikrotik']);
+Route::post('editMik', [AdminController::class, 'editMik']);
+Route::post('deleteMikrotik', [AdminController::class, 'deleteMikrotik']);
+Route::get('navbar', [AdminController::class, 'navbar']);
+
 
 });
 

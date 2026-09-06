@@ -34,6 +34,7 @@
                                 <thead>
                                 <tr>
                                     <th>Date</th>
+                                    <th>Mikrotik</th>
                                     <th>Customer</th>
                                     <th>reason</th>
                                     <th>amount</th>
@@ -47,10 +48,12 @@
 
                                     <td>{{date('d/m/Y H:i:s',strtotime($log->date))}}</td>
                                     @if(@isset($log->user->first_name))
+                                    <td>{{$log->user->mik->name}}</td>
                                     <td>{{$log->user->first_name}} {{$log->user->phone}}</td>
                                     @else
                                     <td>{{$log->name}}</td>
                                     @endif
+                                    
                                     @switch($log->reason)
                                     @case(0)
                                     <td>Paid</td>

@@ -17,7 +17,7 @@ use App\Models\Band;
 use App\Models\Logging;
 use App\Models\Qproduct;
 use App\Models\Quotation;
-use App\Models\Mikrotik;
+use App\Models\Mik;
 use App\Models\Duplicate;
 use App\Models\User;
 use App\Models\Singlesms;
@@ -48,6 +48,8 @@ class AdminController extends Controller
               $debt = User::where('balance','>',0)->sum('balance');
               $total = $mpesa + $cash;
               $net =$total - $expense;
+            $mikrotiks = Mik::all();
+
                 return view('admin.index',[
                     'notice'=>$notice,
                     'mpesa'=>$mpesa,
@@ -55,6 +57,7 @@ class AdminController extends Controller
                     'expense'=>$expense,
                     'net'=>$net,
                     'debt'=>$debt,
+                    'mikrotiks'=>$mikrotiks
                 ]);
             }
         }
@@ -203,8 +206,11 @@ class AdminController extends Controller
     }
     public function profile(){
         if (Auth::check()) {
+            $mikrotiks = Mik::all();
             if (Auth::user()->role==0 || Auth::user()->role==1 || Auth::user()->role==5 || Auth::user()->role==6 || Auth::user()->role==7 || Auth::user()->role==8) {
-                return view('admin.profile');
+                return view('admin.profile',[
+                    'mikrotiks'=>$mikrotiks
+                ]);
             }
         }
         else{
@@ -224,9 +230,11 @@ class AdminController extends Controller
     }
     public function customers(){
         if (Auth::check()){
-            $customers = User::where('role', 2)->orWhere('role',50)->orderByDesc('id')->get();
+            $customers = User::where('dis_status','false')->where('role','!=',4)->orWhere('dis_status','true')->orderByDesc('id')->get();
+            $mikrotiks = Mik::all();
             return view('admin.customers',[
                 'customers'=>$customers,
+                'mikrotiks'=>$mikrotiks
             ]);
         }
         else{
@@ -237,8 +245,10 @@ class AdminController extends Controller
     public function logs(){
         if (Auth::check()){
             $logs = Logging::latest()->get();
+            $mikrotiks = Mik::all();
             return view('admin.logs',[
                 'logs'=>$logs,
+                'mikrotiks'=>$mikrotiks
             ]);
         }
         else{
@@ -249,8 +259,10 @@ class AdminController extends Controller
      public function Selectcustomers(){
         if (Auth::check()){
             $customers = User::where('role', 3)->orderByDesc('id')->get();
+            $mikrotiks = Mik::all();
             return view('admin.customerSelect',[
                 'customers'=>$customers,
+                'mikrotiks'=>$mikrotiks
             ]);
         }
         else{
@@ -261,8 +273,10 @@ class AdminController extends Controller
        public function customerAll(){
         if (Auth::check()){
             $customers = User::where('dis_status','true')->orderByDesc('id')->get();
+            $mikrotiks = Mik::all();
             return view('admin.customerAll',[
                 'customers'=>$customers,
+                'mikrotiks'=>$mikrotiks
             ]);
         }
         else{
@@ -273,8 +287,10 @@ class AdminController extends Controller
     public function noneActivecustomers(){
         if (Auth::check()){
             $customers = User::where('role', 4)->orderByDesc('id')->get();
+            $mikrotiks = Mik::all();
             return view('admin.customerNoneActive',[
                 'customers'=>$customers,
+                'mikrotiks'=>$mikrotiks
             ]);
         }
         else{
@@ -321,14 +337,15 @@ class AdminController extends Controller
         }
 
     }
-         public function storePppoe(){
+         public function storePppoe(Request $request){
         if (Auth::check()){
+            $getMikrotik = Mik::where('id',$request->mikrotik_id)->first();
             // Get MikroTik connection details from .env
                 try {
                             $config = new Config([
-                                'host' => '102.209.56.86',
-                                'user' => 'admin',
-                                'pass' => '@anxvtT3n',
+                                'host' => $getMikrotik->ip,
+                                'user' => $getMikrotik->user,
+                                'pass' => $getMikrotik->password,
                                 'port' => 8728,
                             ]);
 
@@ -380,6 +397,7 @@ class AdminController extends Controller
                                     'mikrotik_id'=>$mikrotikUser['.id'],
                                     'dis_status'=>$disabled,
                                     'role'=>3,
+                                    'mik_id'=>$request->mikrotik_id,
                                     'due_date'=>$now,
                         
                                     ]);
@@ -649,7 +667,10 @@ class AdminController extends Controller
         ]);
     }
     public function addEmployee(){
-        return view('admin.addEmployee');
+        $mikrotiks = Mik::all();
+        return view('admin.addEmployee',[
+            'mikrotiks'=>$mikrotiks
+        ]);
     }
     public function shop(){
         $oldCart = Session::get('cat');
@@ -718,8 +739,10 @@ class AdminController extends Controller
     }
    public function employees(){
         $customers = User::where('role',1)->orWhere('role',0)->orWhere('role',5)->orWhere('role',6)->orWhere('role',7)->orWhere('role',8)->orderByDesc('id')->get();
+        $mikrotiks = Mik::all();
         return view('admin.employee',[
-            'customers'=>$customers
+            'customers'=>$customers,
+            'mikrotiks'=>$mikrotiks
         ]);
     }
     public function addProduct(){
@@ -735,8 +758,10 @@ class AdminController extends Controller
     }
     public function addCustomer(){
         $profiles = Profile::all();
+        $mikrotiks = Mik::all();
         return view('admin.addCustomer',[
-            'profiles'=>$profiles
+            'profiles'=>$profiles,
+            'mikrotiks'=>$mikrotiks
         ]);
 
     }
@@ -1265,11 +1290,15 @@ class AdminController extends Controller
         $invoices = Invoice::where('user_id',$user->id)->latest()->take(2)->get();
         $invs = Invoice::where('user_id',$user->id)->get();
         $invCount = Invoice::where('user_id',$user->id)->count();
+        $mikrotiks = Mik::all();
+        $logs = Logging::where('user_id',$user->id)->latest()->get();
         return view('admin.customerDetail',[
             'user'=>$user,
             'invoices'=>$invoices,
             'invs'=>$invs,
-            'invCount'=>$invCount
+            'invCount'=>$invCount,
+            'mikrotiks'=>$mikrotiks,
+            'logs'=>$logs
         ]);
 
     }
@@ -1622,6 +1651,7 @@ class AdminController extends Controller
                     'first_name'=>$request->first_name,
                     'last_name'=>$request->bandwidth,
                     'phone'=>$request->phone,
+                    'location'=>$request->comment,
                     'phoneOne'=>$request->phoneOne,
                     'package_amount' => $request->package_amount,
                     'bandwidth'=>$integer,
@@ -1631,20 +1661,22 @@ class AdminController extends Controller
                     'due_date'=>!isset($endDate) ? $now : $endDate,
                     'balance'=> $bal + $request->cBalance,
                     'role'=>2,
+                    'mik_id'=> $request->mikrotik_id,
                 ]);
                     try {
                     // 2. Initialize connection to MikroTik RouterOS
                     $client = new Client([
-                        'host' => '102.209.56.86',
-                        'user' => 'admin',
-                        'pass' => '@anxvtT3n',
+                        'host' => $store->mik->ip,
+                        'user' => $store->mik->user,
+                        'pass' => $store->mik->password,
                         'port' => 8728,
                     ]);
 
                     // 3. Build the endpoint query to add the secret
                     $query = new Query('/ppp/secret/add');
-                    $query->equal('name', $request->phone);
+                    $query->equal('name', $request->first_name);
                     $query->equal('password', $request->password);
+                    $query->equal('comment', $request->comment);
                     $query->equal('service', 'pppoe');
                     $query->equal('profile', $request->bandwidth);
 
@@ -1670,15 +1702,15 @@ class AdminController extends Controller
                 }
                 
                         $client = new Client([
-                            'host' => '102.209.56.86',
-                            'user' => 'admin',
-                            'pass' => '@anxvtT3n',
+                            'host' => $store->mik->ip,
+                            'user' => $store->mik->user,
+                            'pass' => $store->mik->password,
                             'port' => 8728,
                         ]);
 
                     // Build a query looking for the specific name
                     $query = (new Query('/ppp/secret/print'))
-                        ->where('name', $request->phone);
+                        ->where('name', $request->first_name);
 
                     $response = $client->query($query)->read();
                     $mikrotikId = $response[0]['.id'];
@@ -1693,9 +1725,9 @@ class AdminController extends Controller
                                 if($store->balance > 0){
                                     try{
                                             $config = new Config([
-                                                    'host' => '102.209.56.86',
-                                                    'user' => 'admin',
-                                                    'pass' => '@anxvtT3n',
+                                                    'host' => $store->mik->ip,
+                                                    'user' => $store->mik->user,
+                                                    'pass' => $store->mik->password,
                                                     'port' => 8728,
                                         ]);
                                         $client = new Client($config);
@@ -1764,20 +1796,7 @@ class AdminController extends Controller
                                                         'date' => $now,
                                                         
                                                     ]);
-                                                                                                             $postData = [
-                        'apikey' => '9324ef7e2034b5d479f64d31ae513215',
-                        'partnerID' => 138,
-                        'mobile' => $store->phoneOne,
-                        
-                        'message' => 'Dear Customer,
-Welcome to Vumatel Networks. Your account has been created, and to activate, kindly make a payment of KES '.$store->balance.' through;
-MPESA Paybill Number 4311304
-Account Number '.$store->phone.'
-Thank you for choosing our services.',
-                        'shortcode' => 'VUMATEL',
-                        
-                    ];
-                    $respons = Http::post('https://sms.imarabiz.com/api/services/sendsms/', $postData);
+                                                                                                             
                                 }
                                 else{
                                              $createInvoice = Invoice::create([
@@ -1800,7 +1819,6 @@ Thank you for choosing our services.',
                                                 $updateAmount = User::where('id',$store->id)->update(['amount'=>$request->package_amount, 'dis_status'=>'false']);
                                                 
                                 }
-                                       
 
                             return redirect(url('customers'))->with('success','CUSTOMER CREATED SUCCESSFULLY');
 
@@ -2223,10 +2241,10 @@ Thank you for choosing our services.',
                             $updateStatus = Invoice::where('id', $getInv->id)->update(['status' => 1]);
                                 // Get the MikroTik API client using the configured facade
                                     $config = new Config([
-                                    'host' => '192.168.88.1',
-                                    'user' => 'admin',
-                                    'pass' => 'password',
-                                    'port' => 8728,
+                                        'host' => $getUserIdentification->mik->ip,
+                                        'user' => $getUserIdentification->mik->user,
+                                        'pass' => $getUserIdentification->mik->password,
+                                        'port' => 8728,
                                 ]);
                                 $client = new Client($config);
                                 $mikId = $getUserIdentification->mikrotik_id;
@@ -2459,8 +2477,10 @@ Thank you for choosing our services.',
     }
     public function editUser($id){
         $user = User::find($id);
+        $mikrotiks = Mik::all();
         return view('admin.editEmployee',[
-            'user'=>$user
+            'user'=>$user,
+            'mikrotiks'=>$mikrotiks
         ]);
     }
     public function currentYear(){
@@ -2509,6 +2529,7 @@ Thank you for choosing our services.',
         $customer = User::find($id);
         $custs = Duplicate::where('duplicate_id', $id)->orderByDesc('id')->get();
         $clients = User::where('role',2)->get();
+        $mikrotiks = Mik::all();
         $secretPassword = null;
         $date = $customer->payment_date;
 
@@ -2516,9 +2537,9 @@ Thank you for choosing our services.',
         
         try{
              $client = new Client([
-           'host' => '102.209.56.86',
-            'user' => 'admin',
-            'pass' => '@anxvtT3n',
+            'host' => $customer->mik->ip,
+            'user' => $customer->mik->user,
+            'pass' => $customer->mik->password,
             'port' => 8728,
         ]);
 
@@ -2548,28 +2569,17 @@ Thank you for choosing our services.',
             'custs'=>$custs,
             'clients'=>$clients,
             'date'=>$date,
+            'mikrotiks'=>$mikrotiks,
             'password' => $secretPassword
         ]);
     }
      public function addCustomers(Request $request){
-     
-                do {
-            // Generate a random integer between your min and max bounds
-            $randomNumber = random_int(1, 1000);
-            $padded = Str::padLeft($randomNumber, 4, '0'); 
-        } while (User::where('phone', $padded)->exists());
-
-               do {
-            // Generate a random integer between your min and max bounds
-            $padd = random_int(1000, 10000);
-             
-        } while (User::where('password', $padd)->exists());
 
         // $randomNumber is now guaranteed to be unique and unused
-      
+         $mikrotiks = Mik::all();
         return view('admin.customerAdd',[
-            'randomAccount'=>$padded,
-            'randomPassword'=>$padd,
+          
+            'mikrotiks'=>$mikrotiks
 
         ]);
     }
@@ -2653,17 +2663,17 @@ Thank you for choosing our services.',
             $getA = User::find($id);
 
           try {
+
                                 // Get the MikroTik API client using the configured facade
                                 $config = new Config([
-                                'host' => '102.209.56.86',
-                                'user' => 'admin',
-                                'pass' => '@anxvtT3n',
-                                'port' => 8728,
+                                    'host' => $getA->mik->ip,
+                                    'user' => $getA->mik->user,
+                                    'pass' => $getA->mik->password,
+                                    'port' => 8728,
                             ]);
                             $client = new Client($config);
                             $query = (new Query('/ppp/secret/print'))->where('.id', $getA->mikrotik_id);
                             $secrets = $client->query($query)->read();
-                            
                             // $secrets will be an array containing the user's details if found.
                             
                             if (!empty($secrets)) {
@@ -2692,13 +2702,51 @@ Thank you for choosing our services.',
         }
         
         $edit->phoneOne = $request->phoneOne;
-        $edit->location = $request->location;
+        $edit->location = $request->comment;
         $edit->package_amount = $request->package_amount;
         $edit->amount = $request->package_amount;
         $edit->payment_date = $request->payment_date;
         $edit->due_date = $nextDate;
         $edit->balance = $currentBal;
         $edit->save();
+
+          try {
+
+                                // Get the MikroTik API client using the configured facade
+                                $config = new Config([
+                                    'host' => $edit->mik->ip,
+                                    'user' => $edit->mik->user,
+                                    'pass' => $edit->mik->password,
+                                    'port' => 8728,
+                            ]);
+                            $client = new Client($config);
+                            $query = (new Query('/ppp/secret/print'))->where('.id', $edit->mikrotik_id);
+                            $secrets = $client->query($query)->read();
+                            // $secrets will be an array containing the user's details if found.
+                            
+                            if (!empty($secrets)) {
+                            $secretId = $secrets[0]['.id']; // Get the ID of the first matching user
+
+                            $updateQuery = (new Query('/ppp/secret/set'))
+                                ->equal('.id', $edit->mikrotik_id)
+                                ->equal('name', $request->first_name)
+                                ->equal('comment', $request->comment);
+                                // ->equal('comment', 'Updated by Laravel'); // Add or change comments
+
+                            $client->query($updateQuery)->read(); // Execute the update
+                            
+                        }
+                 
+                                
+                        
+                    
+
+                    } catch (\Exception $e) {
+                        // 5. Handle any connection or API errors
+                        Log::info('password edit failed');
+                    
+                        return response()->json(['error' => 'Failed to update password secret: ' . $e->getMessage()], 500);
+                    }    
         $createLogTwelve = Logging::create([
             'user_id' => $id,
             'reason' => 12,
@@ -2793,9 +2841,9 @@ Thank you for choosing our services.',
                                     try {
                                 // Get the MikroTik API client using the configured facade
                                 $config = new Config([
-                                'host' => '102.209.56.86',
-                                'user' => 'admin',
-                                'pass' => '@anxvtT3n',
+                                'host' => $getUser->mik->ip,
+                                'user' => $getUser->mik->user,
+                                'pass' => $getUser->mik->password,
                                 'port' => 8728,
                             ]);
                             $client = new Client($config);
@@ -2832,9 +2880,9 @@ Thank you for choosing our services.',
                       try {
                                 // Get the MikroTik API client using the configured facade
                                 $config = new Config([
-                                'host' => '102.209.56.86',
-                                'user' => 'admin',
-                                'pass' => '@anxvtT3n',
+                                'host' => $getUser->mik->ip,
+                                'user' => $getUser->mik->user,
+                                'pass' => $getUser->mik->password,
                                 'port' => 8728,
                             ]);
                             $client = new Client($config);
@@ -2998,9 +3046,9 @@ Thank you for choosing our services.',
             // 1. Initialize MikroTik API Client
         // Ensure your MikroTik has the API service enabled under IP > Services > api
         $client = new Client([
-            'host' => '102.209.56.86',
-            'user' => 'admin',
-            'pass' => '@anxvtT3n',
+            'host' => $findUser->mik->ip,
+            'user' => $findUser->mik->user,
+            'pass' => $findUser->mik->password,
             'port' => 8728,
         ]);
 
@@ -3189,12 +3237,33 @@ Thank you for choosing our services.',
          
     }
     public function addMikrotik(){
-        return view('admin.addMikrotik');
+        $mikrotiks = Mik::all();
+        return view('admin.addMikrotik',[
+            'mikrotiks'=>$mikrotiks
+        ]);
+    }
+     public function mikrotikDetail($id){
+        $mikrotik = Mik::find($id);
+        $mikrotiks = Mik::all();
+        $customers = User::where('role', 3)->where('mik_id',$id)->orderByDesc('id')->get();
+        $actives = User::where('dis_status', 'false')->where('role','!=',4)->where('mik_id',$id)->orderByDesc('id')->get();
+        $disconnects = User::where('dis_status', 'true')->where('role','!=',4)->where('mik_id',$id)->orderByDesc('id')->get();
+        return view('admin.mikrotikDetail',[
+            'mikrotik'=>$mikrotik,
+            'mikrotiks'=>$mikrotiks,
+            'customers'=>$customers,
+            'disconnects'=>$disconnects,
+            'actives'=>$actives,
+
+        ]);
     }
     public function listMikrotik(){
-        $mpesas = Mikrotik::all();
+        $mpesas = Mik::all();
+        $mikrotiks = Mik::all();
+
         return view('admin.listMikrotik',[
-            'mpesas'=>$mpesas
+            'mpesas'=>$mpesas,
+            'mikrotiks'=>$mikrotiks
         ]);
     }
 
@@ -3216,8 +3285,11 @@ Thank you for choosing our services.',
 
             // Extract the 'name' from the MikroTik response
             $routerName = $response[0]['name'] ?? 'Unknown';
-            $store = new Mikrotik();
+            $store = new Mik();
             $store->name = $routerName;
+            $store->ip = $request->mikrotik_ip;
+            $store->user = $request->mikrotik_user;
+            $store->password = $request->mikrotik_password;
             $store->save();
 
          
@@ -3228,6 +3300,35 @@ Thank you for choosing our services.',
         }
         return redirect(url('listMikrotik'))->with('success','Mikrotik added Success');
 
+    }
+    public function editMikrotik($id){
+        $edit = Mik::find($id);
+        $mikrotiks = Mik::all();
+        return view('admin.editMikrotik',[
+            'edit'=>$edit,
+            'mikrotiks'=>$mikrotiks
+        ]);
+    }
+    public function editMik(Request $request){
+        $edit = Mik::find($request->mikrotik_id);
+        $edit->ip = $request->mikrotik_ip;
+        $edit->user = $request->mikrotik_user;
+        $edit->password = $request->mikrotik_password;
+        $edit->save();
+
+        return redirect(url('listMikrotik'))->with('success','Mikrotik Edit Success');
+
+    }
+    public function deleteMikrotik(Request $request){
+        $deleteM = Mik::where('id',$request->mikrotik_id)->delete();
+        return redirect()->back()->with('Mikrotik Deleted Success');
+    }
+    public function navbar(){
+        $mikrotik = Mik::all();
+
+        return view('adminPartial.nav',[
+            'mikrotiks'=>$mikrotiks
+        ]);
     }
 
 }

@@ -71,9 +71,9 @@ class Downtime extends Command
            // Get the MikroTik API client using the configured facade
                             try{
                                             $config = new Config([
-                                                'host' => '102.209.56.86',
-                                                'user' => 'admin',
-                                                'pass' => '@anxvtT3n',
+                                                'host' => $cache->user->mik->ip,
+                                                'user' => $cache->user->mik->user,
+                                                'pass' => $cache->user->mik->password,
                                                 'port' => 8728,
                                         ]);
                                         $client = new Client($config);
@@ -137,10 +137,10 @@ class Downtime extends Command
                            try {
                                 // Get the MikroTik API client using the configured facade
                                 $config = new Config([
-                                'host' => '102.209.56.86',
-                                'user' => 'admin',
-                                'pass' => '@anxvtT3n',
-                                'port' => 8728,
+                                    'host' => $cache->user->mik->ip,
+                                    'user' => $cache->user->mik->user,
+                                    'pass' => $cache->user->mik->password,
+                                    'port' => 8728,
                             ]);
                             $bandwidth = $cache->user->last_name;
                             $client = new Client($config);
@@ -177,9 +177,9 @@ class Downtime extends Command
                                   try {
                                     // Get the MikroTik API client using the configured facade
                                     $config = new Config([
-                                        'host' => '102.209.56.86',
-                                        'user' => 'admin',
-                                        'pass' => '@anxvtT3n',
+                                        'host' => $cache->user->mik->ip,
+                                        'user' => $cache->user->mik->user,
+                                        'pass' => $cache->user->mik->password,
                                         'port' => 8728,
                                 ]);
                                 $bandwidth = '1MBPS';

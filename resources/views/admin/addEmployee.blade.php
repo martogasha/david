@@ -73,19 +73,16 @@
 
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" name="customers" value="2" id="customCheck2">
-                                            <label class="custom-control-label" for="customCheck2">Customers</label>
+                                            <label class="custom-control-label" for="customCheck2">Customers/Mikrotiks</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" name="payments" value="3" id="customCheck3">
                                             <label class="custom-control-label" for="customCheck3">Payments</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="sms" value="4" id="customCheck4">
-                                            <label class="custom-control-label" for="customCheck4">Bulk SMS</label>
-                                        </div>
+                                 
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" name="band" value="5" id="customCheck5">
-                                            <label class="custom-control-label" for="customCheck5">Bandwidth Monitor</label>
+                                            <label class="custom-control-label" for="customCheck5">Mikrotik Management</label>
                                         </div>
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" name="logs" value="6" id="customCheck6">

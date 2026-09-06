@@ -8,6 +8,7 @@ use App\Models\Mpesa;
 use App\Models\Logging;
 use App\Models\Payment;
 use App\Models\User;
+use App\Models\Mik;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -24,9 +25,11 @@ class MpesaController extends Controller
             $mpesas = Mpesa::where('id','>',0)->orderByDesc('id')->get();
             $currentMonth = date('m');
             $total = Mpesa::where('currentMonth',$currentMonth)->sum('amount');
+            $mikrotiks = Mik::all();
             return view('admin.mpesa',[
                 'mpesas'=>$mpesas,
                 'total'=>$total,
+                'mikrotiks'=>$mikrotiks
             ]);
         }
         else{
@@ -79,7 +82,6 @@ class MpesaController extends Controller
     {
         Log::info('First Paybill');
         Log::info($request->all());
-        dd('ok');
         
         $dateFormats = $request->TransTime;
         $dateFormat = Carbon::parse($dateFormats);
@@ -103,8 +105,11 @@ class MpesaController extends Controller
                             'invoice_id' => $getInvoice->id,
                             'currentMonth' =>$currentMonth,
                             'currentYear' =>$currentYear,
+                            'tillNumber' =>$request->BusinessShortCode,
 
                         ]);
+                                dd('ok');
+
                         $createPay = Payment::create([
                             'user_id' => $getUserIdentification->id,
                             'invoice_id' => $getInvoice->id,
@@ -136,9 +141,9 @@ class MpesaController extends Controller
                         $updateUserInvoice = User::where('id', $getUserIdentification->id)->update(['invoice'=>null]);
                           try{
                                             $config = new Config([
-                                                'host' => '102.209.56.86',
-                                                'user' => 'admin',
-                                                'pass' => '@anxvtT3n',
+                                                'host' => $getUserIdentification->mik->ip,
+                                                'user' => $getUserIdentification->mik->user,
+                                                'pass' => $getUserIdentification->mik->password,
                                                 'port' => 8728,
                                         ]);
                                         $client = new Client($config);
@@ -292,9 +297,9 @@ class MpesaController extends Controller
                                 // Get the MikroTik API client using the configured facade
                             try{
                                             $config = new Config([
-                                                'host' => '102.209.56.86',
-                                                'user' => 'admin',
-                                                'pass' => '@anxvtT3n',
+                                                'host' => $getUserIdentification->mik->ip,
+                                                'user' => $getUserIdentification->mik->user,
+                                                'pass' => $getUserIdentification->mik->password,
                                                 'port' => 8728,
                                         ]);
                                         $client = new Client($config);
@@ -357,9 +362,9 @@ class MpesaController extends Controller
                                         try {
                                                     // Get the MikroTik API client using the configured facade
                                                     $config = new Config([
-                                                        'host' => '102.209.56.86',
-                                                        'user' => 'admin',
-                                                        'pass' => '@anxvtT3n',
+                                                        'host' => $getUserIdentification->mik->ip,
+                                                        'user' => $getUserIdentification->mik->user,
+                                                        'pass' => $getUserIdentification->mik->password,
                                                         'port' => 8728,
                                                 ]);
                                                 $client = new Client($config);
@@ -392,16 +397,7 @@ class MpesaController extends Controller
                                             ]);
                                             return response()->json(['error' => 'Failed to disable PPPoE secret: ' . $e->getMessage()], 500);
                                         }
-                                                                                  $postData = [
-                        'apikey' => '9324ef7e2034b5d479f64d31ae513215',
-                        'partnerID' => 138,
-                        'mobile' => $getUserIdentification->phoneOne,
-                        
-                        'message' => 'Dear Customer, your payment has been well received, thank you. Kindly restart the router.',
-                        'shortcode' => 'VUMATEL',
-                        
-                    ];
-                    $respons = Http::post('https://sms.imarabiz.com/api/services/sendsms/', $postData);
+                                                                            
 
                         } else {
 
@@ -586,6 +582,7 @@ class MpesaController extends Controller
                             
                             'currentMonth' =>$currentMonth,
                             'currentYear' =>$currentYear,
+                            'tillNumber' =>$request->BusinessShortCode,
                             ]);
                             
 
@@ -601,9 +598,8 @@ class MpesaController extends Controller
     {
         Log::info('Second Paybill');
         Log::info($request->all());
-        dd('ok');
         
-        $dateFormats = $request->TransTime;
+      $dateFormats = $request->TransTime;
         $dateFormat = Carbon::parse($dateFormats);
         $dateNow = Carbon::now();
         $currentMonth = date('m');
@@ -625,8 +621,11 @@ class MpesaController extends Controller
                             'invoice_id' => $getInvoice->id,
                             'currentMonth' =>$currentMonth,
                             'currentYear' =>$currentYear,
+                            'tillNumber' =>$request->BusinessShortCode,
 
                         ]);
+                                dd('ok');
+
                         $createPay = Payment::create([
                             'user_id' => $getUserIdentification->id,
                             'invoice_id' => $getInvoice->id,
@@ -658,9 +657,9 @@ class MpesaController extends Controller
                         $updateUserInvoice = User::where('id', $getUserIdentification->id)->update(['invoice'=>null]);
                           try{
                                             $config = new Config([
-                                                'host' => '102.209.56.86',
-                                                'user' => 'admin',
-                                                'pass' => '@anxvtT3n',
+                                                'host' => $getUserIdentification->mik->ip,
+                                                'user' => $getUserIdentification->mik->user,
+                                                'pass' => $getUserIdentification->mik->password,
                                                 'port' => 8728,
                                         ]);
                                         $client = new Client($config);
@@ -814,9 +813,9 @@ class MpesaController extends Controller
                                 // Get the MikroTik API client using the configured facade
                             try{
                                             $config = new Config([
-                                                'host' => '102.209.56.86',
-                                                'user' => 'admin',
-                                                'pass' => '@anxvtT3n',
+                                                'host' => $getUserIdentification->mik->ip,
+                                                'user' => $getUserIdentification->mik->user,
+                                                'pass' => $getUserIdentification->mik->password,
                                                 'port' => 8728,
                                         ]);
                                         $client = new Client($config);
@@ -879,9 +878,9 @@ class MpesaController extends Controller
                                         try {
                                                     // Get the MikroTik API client using the configured facade
                                                     $config = new Config([
-                                                        'host' => '102.209.56.86',
-                                                        'user' => 'admin',
-                                                        'pass' => '@anxvtT3n',
+                                                        'host' => $getUserIdentification->mik->ip,
+                                                        'user' => $getUserIdentification->mik->user,
+                                                        'pass' => $getUserIdentification->mik->password,
                                                         'port' => 8728,
                                                 ]);
                                                 $client = new Client($config);
@@ -914,16 +913,7 @@ class MpesaController extends Controller
                                             ]);
                                             return response()->json(['error' => 'Failed to disable PPPoE secret: ' . $e->getMessage()], 500);
                                         }
-                                                                                  $postData = [
-                        'apikey' => '9324ef7e2034b5d479f64d31ae513215',
-                        'partnerID' => 138,
-                        'mobile' => $getUserIdentification->phoneOne,
-                        
-                        'message' => 'Dear Customer, your payment has been well received, thank you. Kindly restart the router.',
-                        'shortcode' => 'VUMATEL',
-                        
-                    ];
-                    $respons = Http::post('https://sms.imarabiz.com/api/services/sendsms/', $postData);
+                                                                            
 
                         } else {
 
@@ -1108,6 +1098,7 @@ class MpesaController extends Controller
                             
                             'currentMonth' =>$currentMonth,
                             'currentYear' =>$currentYear,
+                            'tillNumber' =>$request->BusinessShortCode,
                             ]);
                             
 
@@ -1122,9 +1113,8 @@ class MpesaController extends Controller
     {
         Log::info('Third Paybill');
         Log::info($request->all());
-        dd('ok');
         
-        $dateFormats = $request->TransTime;
+      $dateFormats = $request->TransTime;
         $dateFormat = Carbon::parse($dateFormats);
         $dateNow = Carbon::now();
         $currentMonth = date('m');
@@ -1146,8 +1136,11 @@ class MpesaController extends Controller
                             'invoice_id' => $getInvoice->id,
                             'currentMonth' =>$currentMonth,
                             'currentYear' =>$currentYear,
+                            'tillNumber' =>$request->BusinessShortCode,
 
                         ]);
+                                dd('ok');
+
                         $createPay = Payment::create([
                             'user_id' => $getUserIdentification->id,
                             'invoice_id' => $getInvoice->id,
@@ -1179,9 +1172,9 @@ class MpesaController extends Controller
                         $updateUserInvoice = User::where('id', $getUserIdentification->id)->update(['invoice'=>null]);
                           try{
                                             $config = new Config([
-                                                'host' => '102.209.56.86',
-                                                'user' => 'admin',
-                                                'pass' => '@anxvtT3n',
+                                                'host' => $getUserIdentification->mik->ip,
+                                                'user' => $getUserIdentification->mik->user,
+                                                'pass' => $getUserIdentification->mik->password,
                                                 'port' => 8728,
                                         ]);
                                         $client = new Client($config);
@@ -1335,9 +1328,9 @@ class MpesaController extends Controller
                                 // Get the MikroTik API client using the configured facade
                             try{
                                             $config = new Config([
-                                                'host' => '102.209.56.86',
-                                                'user' => 'admin',
-                                                'pass' => '@anxvtT3n',
+                                                'host' => $getUserIdentification->mik->ip,
+                                                'user' => $getUserIdentification->mik->user,
+                                                'pass' => $getUserIdentification->mik->password,
                                                 'port' => 8728,
                                         ]);
                                         $client = new Client($config);
@@ -1400,9 +1393,9 @@ class MpesaController extends Controller
                                         try {
                                                     // Get the MikroTik API client using the configured facade
                                                     $config = new Config([
-                                                        'host' => '102.209.56.86',
-                                                        'user' => 'admin',
-                                                        'pass' => '@anxvtT3n',
+                                                        'host' => $getUserIdentification->mik->ip,
+                                                        'user' => $getUserIdentification->mik->user,
+                                                        'pass' => $getUserIdentification->mik->password,
                                                         'port' => 8728,
                                                 ]);
                                                 $client = new Client($config);
@@ -1435,16 +1428,7 @@ class MpesaController extends Controller
                                             ]);
                                             return response()->json(['error' => 'Failed to disable PPPoE secret: ' . $e->getMessage()], 500);
                                         }
-                                                                                  $postData = [
-                        'apikey' => '9324ef7e2034b5d479f64d31ae513215',
-                        'partnerID' => 138,
-                        'mobile' => $getUserIdentification->phoneOne,
-                        
-                        'message' => 'Dear Customer, your payment has been well received, thank you. Kindly restart the router.',
-                        'shortcode' => 'VUMATEL',
-                        
-                    ];
-                    $respons = Http::post('https://sms.imarabiz.com/api/services/sendsms/', $postData);
+                                                                            
 
                         } else {
 
@@ -1629,6 +1613,7 @@ class MpesaController extends Controller
                             
                             'currentMonth' =>$currentMonth,
                             'currentYear' =>$currentYear,
+                            'tillNumber' =>$request->BusinessShortCode,
                             ]);
                             
 
@@ -1643,9 +1628,8 @@ class MpesaController extends Controller
     {
         Log::info('Fourth Paybill');
         Log::info($request->all());
-        dd('ok');
         
-        $dateFormats = $request->TransTime;
+      $dateFormats = $request->TransTime;
         $dateFormat = Carbon::parse($dateFormats);
         $dateNow = Carbon::now();
         $currentMonth = date('m');
@@ -1667,8 +1651,11 @@ class MpesaController extends Controller
                             'invoice_id' => $getInvoice->id,
                             'currentMonth' =>$currentMonth,
                             'currentYear' =>$currentYear,
+                            'tillNumber' =>$request->BusinessShortCode,
 
                         ]);
+                                dd('ok');
+
                         $createPay = Payment::create([
                             'user_id' => $getUserIdentification->id,
                             'invoice_id' => $getInvoice->id,
@@ -1700,9 +1687,9 @@ class MpesaController extends Controller
                         $updateUserInvoice = User::where('id', $getUserIdentification->id)->update(['invoice'=>null]);
                           try{
                                             $config = new Config([
-                                                'host' => '102.209.56.86',
-                                                'user' => 'admin',
-                                                'pass' => '@anxvtT3n',
+                                                'host' => $getUserIdentification->mik->ip,
+                                                'user' => $getUserIdentification->mik->user,
+                                                'pass' => $getUserIdentification->mik->password,
                                                 'port' => 8728,
                                         ]);
                                         $client = new Client($config);
@@ -1856,9 +1843,9 @@ class MpesaController extends Controller
                                 // Get the MikroTik API client using the configured facade
                             try{
                                             $config = new Config([
-                                                'host' => '102.209.56.86',
-                                                'user' => 'admin',
-                                                'pass' => '@anxvtT3n',
+                                                'host' => $getUserIdentification->mik->ip,
+                                                'user' => $getUserIdentification->mik->user,
+                                                'pass' => $getUserIdentification->mik->password,
                                                 'port' => 8728,
                                         ]);
                                         $client = new Client($config);
@@ -1921,9 +1908,9 @@ class MpesaController extends Controller
                                         try {
                                                     // Get the MikroTik API client using the configured facade
                                                     $config = new Config([
-                                                        'host' => '102.209.56.86',
-                                                        'user' => 'admin',
-                                                        'pass' => '@anxvtT3n',
+                                                        'host' => $getUserIdentification->mik->ip,
+                                                        'user' => $getUserIdentification->mik->user,
+                                                        'pass' => $getUserIdentification->mik->password,
                                                         'port' => 8728,
                                                 ]);
                                                 $client = new Client($config);
@@ -1956,16 +1943,7 @@ class MpesaController extends Controller
                                             ]);
                                             return response()->json(['error' => 'Failed to disable PPPoE secret: ' . $e->getMessage()], 500);
                                         }
-                                                                                  $postData = [
-                        'apikey' => '9324ef7e2034b5d479f64d31ae513215',
-                        'partnerID' => 138,
-                        'mobile' => $getUserIdentification->phoneOne,
-                        
-                        'message' => 'Dear Customer, your payment has been well received, thank you. Kindly restart the router.',
-                        'shortcode' => 'VUMATEL',
-                        
-                    ];
-                    $respons = Http::post('https://sms.imarabiz.com/api/services/sendsms/', $postData);
+                                                                            
 
                         } else {
 
@@ -2150,6 +2128,7 @@ class MpesaController extends Controller
                             
                             'currentMonth' =>$currentMonth,
                             'currentYear' =>$currentYear,
+                            'tillNumber' =>$request->BusinessShortCode,
                             ]);
                             
 
@@ -2165,9 +2144,8 @@ class MpesaController extends Controller
 
         Log::info('Fiveth Paybill');
         Log::info($request->all());
-        dd('ok');
         
-        $dateFormats = $request->TransTime;
+      $dateFormats = $request->TransTime;
         $dateFormat = Carbon::parse($dateFormats);
         $dateNow = Carbon::now();
         $currentMonth = date('m');
@@ -2189,8 +2167,11 @@ class MpesaController extends Controller
                             'invoice_id' => $getInvoice->id,
                             'currentMonth' =>$currentMonth,
                             'currentYear' =>$currentYear,
+                            'tillNumber' =>$request->BusinessShortCode,
 
                         ]);
+                                dd('ok');
+
                         $createPay = Payment::create([
                             'user_id' => $getUserIdentification->id,
                             'invoice_id' => $getInvoice->id,
@@ -2222,9 +2203,9 @@ class MpesaController extends Controller
                         $updateUserInvoice = User::where('id', $getUserIdentification->id)->update(['invoice'=>null]);
                           try{
                                             $config = new Config([
-                                                'host' => '102.209.56.86',
-                                                'user' => 'admin',
-                                                'pass' => '@anxvtT3n',
+                                                'host' => $getUserIdentification->mik->ip,
+                                                'user' => $getUserIdentification->mik->user,
+                                                'pass' => $getUserIdentification->mik->password,
                                                 'port' => 8728,
                                         ]);
                                         $client = new Client($config);
@@ -2378,9 +2359,9 @@ class MpesaController extends Controller
                                 // Get the MikroTik API client using the configured facade
                             try{
                                             $config = new Config([
-                                                'host' => '102.209.56.86',
-                                                'user' => 'admin',
-                                                'pass' => '@anxvtT3n',
+                                                'host' => $getUserIdentification->mik->ip,
+                                                'user' => $getUserIdentification->mik->user,
+                                                'pass' => $getUserIdentification->mik->password,
                                                 'port' => 8728,
                                         ]);
                                         $client = new Client($config);
@@ -2443,9 +2424,9 @@ class MpesaController extends Controller
                                         try {
                                                     // Get the MikroTik API client using the configured facade
                                                     $config = new Config([
-                                                        'host' => '102.209.56.86',
-                                                        'user' => 'admin',
-                                                        'pass' => '@anxvtT3n',
+                                                        'host' => $getUserIdentification->mik->ip,
+                                                        'user' => $getUserIdentification->mik->user,
+                                                        'pass' => $getUserIdentification->mik->password,
                                                         'port' => 8728,
                                                 ]);
                                                 $client = new Client($config);
@@ -2478,16 +2459,7 @@ class MpesaController extends Controller
                                             ]);
                                             return response()->json(['error' => 'Failed to disable PPPoE secret: ' . $e->getMessage()], 500);
                                         }
-                                                                                  $postData = [
-                        'apikey' => '9324ef7e2034b5d479f64d31ae513215',
-                        'partnerID' => 138,
-                        'mobile' => $getUserIdentification->phoneOne,
-                        
-                        'message' => 'Dear Customer, your payment has been well received, thank you. Kindly restart the router.',
-                        'shortcode' => 'VUMATEL',
-                        
-                    ];
-                    $respons = Http::post('https://sms.imarabiz.com/api/services/sendsms/', $postData);
+                                                                            
 
                         } else {
 
@@ -2672,6 +2644,7 @@ class MpesaController extends Controller
                             
                             'currentMonth' =>$currentMonth,
                             'currentYear' =>$currentYear,
+                            'tillNumber' =>$request->BusinessShortCode,
                             ]);
                             
 
